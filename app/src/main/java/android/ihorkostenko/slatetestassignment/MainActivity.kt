@@ -1,6 +1,6 @@
 package android.ihorkostenko.slatetestassignment
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.ihorkostenko.slatetestassignment.ui.main.MainFragment
 
