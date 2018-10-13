@@ -1,8 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.ihorkostenko.slatetestassignment.utils.State"/>
+        <import type="android.ihorkostenko.slatetestassignment.utils.Status"/>
+        <import type="java.lang.Float"/>
+        <import type="java.lang.String"/>
+
+        <variable
+                name="viewModel"
+                type="android.ihorkostenko.slatetestassignment.ui.viewmodels.MainViewModel"/>
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <LinearLayout
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <Button
+                    android:onClick="@{viewModel::onAddGeofenceClick}"
+                    android:layout_margin="10dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:id="@+id/addGeofence"
+                    android:enabled="@{viewModel.state == State.WAITING}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_geofence"/>
+
+            <Button
+                    android:onClick="@{viewModel::onRemoveGeofenceClick}"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:id="@+id/removeGeofences"
+                    android:enabled="@{viewModel.state == State.WORKING}"
+                    android:layout_width="0dp"
+                    android:layout_margin="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/remove_geofence"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wifi"/>
+
+            <TextView
+                    android:id="@+id/wifiName"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.currentWifiName}"/>
+
+            <TextView
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/status"/>
+
+            <TextView
+                    android:id="@+id/status"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(viewModel.status)}"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/radius"/>
+
+            <TextView
+                    android:id="@+id/radiusTv"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{Float.toString(viewModel.radius)}"/>
+        </LinearLayout>
+
+        <SeekBar
+                android:enabled="@{viewModel.state == State.WAITING}"
+                android:padding="10dp"
+                android:max="500"
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:id="@+id/map"
+                  tools:context=".ui.activities.MainActivity"
+                  android:name="com.google.android.gms.maps.SupportMapFragment"/>
+    </LinearLayout>
+
+</layout>
