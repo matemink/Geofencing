@@ -26,10 +26,12 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MainViewModel(
     private val geofencingClient: GeofencingClient,
     private val pendingIntent: PendingIntent,
-    private val wifiReceiver: WifiReceiver, private val wifiManager: WifiManager,
-    private val callbacks: PropertyChangeRegistry = PropertyChangeRegistry()
+    private val wifiReceiver: WifiReceiver,
+    private val wifiManager: WifiManager
 ) :
     ViewModel(), Observable {
+    private val callbacks: PropertyChangeRegistry = PropertyChangeRegistry()
+
     private lateinit var googleMap: GoogleMap
     private lateinit var latLng: LatLng
 
