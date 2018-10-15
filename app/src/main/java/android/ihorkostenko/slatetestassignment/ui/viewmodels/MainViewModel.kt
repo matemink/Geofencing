@@ -40,7 +40,7 @@ class MainViewModel(
     @Bindable
     var status: Status = Status.UNKNOWN
     @Bindable
-    var state: State = State.WAITING
+    var state: State = State.STARTING
     @Bindable
     var currentWifiName: String = "None"
 
@@ -124,7 +124,11 @@ class MainViewModel(
     @SuppressLint("MissingPermission")
     fun omMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
-        this.googleMap.setOnCameraIdleListener { latLng = googleMap.cameraPosition.target }
+        this.googleMap.setOnCameraIdleListener {
+            latLng = googleMap.cameraPosition.target
+            state = State.WAITING
+            notifyPropertyChanged(BR.state)
+        }
         this.googleMap.isMyLocationEnabled = true
     }
 
