@@ -126,8 +126,10 @@ class MainViewModel(
         this.googleMap = googleMap
         this.googleMap.setOnCameraIdleListener {
             latLng = googleMap.cameraPosition.target
-            state = State.WAITING
-            notifyPropertyChanged(BR.state)
+            if (state == State.STARTING) {
+                state = State.WAITING
+                notifyPropertyChanged(BR.state)
+            }
         }
         this.googleMap.isMyLocationEnabled = true
     }
